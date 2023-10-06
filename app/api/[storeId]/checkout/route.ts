@@ -66,6 +66,7 @@ export async function POST(
     data: {
       storeId: params.storeId,
       isPaid: false,
+      quantity: 1,
       orderItems: {
         create: productIds.map((productId: string, i: number) => ({
           quantity: quantities[i], // Use the corresponding quantity here

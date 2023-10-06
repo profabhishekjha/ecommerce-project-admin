@@ -88,7 +88,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         categoryId: "",
         colorId: "",
         sizeId: "",
-        quantity: 0,
+        quantity: 1,
         isFeatured: false,
         isArchived: false,
       };

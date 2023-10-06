@@ -86,6 +86,7 @@ model Order {
   address    String      @default("")
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
+  quantity   Int         @default(1)
 
   @@index([storeId])
 }

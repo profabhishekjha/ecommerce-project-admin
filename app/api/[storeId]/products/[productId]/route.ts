@@ -81,7 +81,6 @@ export async function PATCH(
 
     const {
       name,
-      quantity,
       price,
       categoryId,
       images,
@@ -149,7 +148,6 @@ export async function PATCH(
         },
         isFeatured,
         isArchived,
-        quantity,
       },
     });
 

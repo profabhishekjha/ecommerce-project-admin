@@ -11,7 +11,7 @@ export type ProductColumn = {
   category: string;
   size: string;
   colorValue: string;
-  quantity: Number;
+  quantity: number;
   createdAt: string;
   isFeatured: boolean;
   isArchived: boolean;
