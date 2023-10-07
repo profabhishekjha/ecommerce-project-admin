@@ -60,6 +60,7 @@ model Product {
   price      Decimal
   isFeatured Boolean     @default(false)
   isArchived Boolean     @default(false)
+  quantity   Int?
   sizeId     String // Foreign Key to Size
   size       Size        @relation(fields: [sizeId], references: [id])
   colorId    String // Foreign Key to Color
@@ -85,6 +86,7 @@ model Order {
   address    String      @default("")
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
+  quantity   Int
 
   @@index([storeId])
 }
@@ -96,6 +98,7 @@ model OrderItem {
   order     Order   @relation(fields: [orderId], references: [id])
   productId String // Foreign Key to Product
   product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
 
   @@index([orderId])
   @@index([productId])

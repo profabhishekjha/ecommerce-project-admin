@@ -31,12 +31,14 @@ export async function POST(
       },
     },
   });
+console.log(products)
 
   const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
 
+
   products.forEach((product) => {
     line_items.push({
-      quantity: 1,
+      quantity: product.quantity || 1,
       price_data: {
         currency: "INR",
         product_data: {
@@ -58,6 +60,7 @@ export async function POST(
               id: productId,
             },
           },
+          quantity: 1
         })),
       },
     },
