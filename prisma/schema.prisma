@@ -139,3 +139,8 @@ model Image {
 
   @@index([productId])
 }
+
+model TotalQuantity {
+  id       Int @id @default(autoincrement())
+  quantity Int @default(0)
+}

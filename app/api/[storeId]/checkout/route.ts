@@ -36,6 +36,7 @@ export async function POST(
 
   const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
 
+  let totalQuantity = 0;
 
   for (let i = 0; i < productIds.length; i++) {
     const productId = productIds[i];
@@ -61,13 +62,15 @@ export async function POST(
         unit_amount: product.price.toNumber() * 100,
       },
     });
+
+    totalQuantity += quantities[i];
   }
 
   const order = await prismadb.order.create({
     data: {
       storeId: params.storeId,
       isPaid: false,
-      quantity: 1,
+      quantity: totalQuantity,
       orderItems: {
         create: productIds.map((productId: string, i: number) => ({
           quantity: quantities[i], // Use the corresponding quantity here
@@ -80,6 +83,24 @@ export async function POST(
       },
     },
   });
+
+  // Check if the order is paid before updating the total quantity
+  if (order.isPaid) {
+    const existingTotalQuantity = await prismadb.totalQuantity.findFirst();
+
+    if (existingTotalQuantity) {
+      // If there is an existing record, update it
+      await prismadb.totalQuantity.update({
+        where: { id: existingTotalQuantity.id },
+        data: { quantity: existingTotalQuantity.quantity + totalQuantity },
+      });
+    } else {
+      // If there is no existing record, create a new one
+      await prismadb.totalQuantity.create({
+        data: { quantity: totalQuantity },
+      });
+    }
+  }
 
   const session = await stripe.checkout.sessions.create({
     line_items,
