@@ -22,6 +22,7 @@ export async function POST(
       isFeatured,
       isArchived,
       quantity,
+      description,
     } = body;
 
     if (!userId) {
@@ -77,6 +78,7 @@ export async function POST(
         colorId,
         sizeId,
         quantity,
+        description,
         storeId: params.storeId,
         images: {
           createMany: {

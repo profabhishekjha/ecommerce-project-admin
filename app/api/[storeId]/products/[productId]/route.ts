@@ -82,6 +82,8 @@ export async function PATCH(
     const {
       name,
       price,
+      description,
+      quantity,
       categoryId,
       images,
       colorId,
@@ -140,6 +142,8 @@ export async function PATCH(
       data: {
         name,
         price,
+        description,
+        quantity,
         categoryId,
         colorId,
         sizeId,
